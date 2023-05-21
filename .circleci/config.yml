@@ -11,5 +11,5 @@ jobs:
             sudo apt-get install -y android-sdk-build-tools
             for apk_file in $(sudo find -type f -name *.apk) ; do
                 echo $apk_file
-                sudo aapt2 dump badging $apk_file | grep package | head -1 | awk '{print $2}' | sed s/name=//g | sed s/\'//g
+                sudo aapt2 dump badging $apk_file
             done
