@@ -1,0 +1,49 @@
+version: 2.1
+parameters:
+  ROM_URL:
+    default: ''
+    type: string
+
+  vip:
+    default: "false"
+    type: string
+
+  gh_actor:
+    default: MIUIVS_builder
+    type: string
+
+  gh_url:
+    default: ""
+    type: string
+
+  gh_repository:
+    default: ""
+    type: string
+
+  gh_id:
+    default: ""
+    type: string
+
+  gg_drive:
+    default: ""
+    type: string
+
+workflows:
+  version: 2
+  miuivs_builder:
+    when: << pipeline.parameters.ROM_URL >>
+    jobs:
+      - build
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:2023.04.2
+    steps:
+      - checkout
+      # Whatever you want to do
+      - run:
+          name: Setup Tool
+          command: |
+            echo "Running Step 1"
+           
