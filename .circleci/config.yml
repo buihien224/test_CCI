@@ -13,5 +13,5 @@ jobs:
                 package_name=$(sudo aapt2 dump badging $apk_file | grep package | head -1 | awk '{print $2}' | sed s/name=//g | sed s/\'//g  )
                 if [[ $package_name = $1 ]]; then
                   echo $(basename $apk_file)	
-		            fi
+                fi
 	          done
