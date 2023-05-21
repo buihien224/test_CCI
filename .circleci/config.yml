@@ -1,40 +1,3 @@
-version: 2.1
-parameters:
-  ROM_URL:
-    default: ''
-    type: string
-
-  vip:
-    default: "false"
-    type: string
-
-  gh_actor:
-    default: MIUIVS_builder
-    type: string
-
-  gh_url:
-    default: ""
-    type: string
-
-  gh_repository:
-    default: ""
-    type: string
-
-  gh_id:
-    default: ""
-    type: string
-
-  gg_drive:
-    default: ""
-    type: string
-
-workflows:
-  version: 2
-  miuivs_builder:
-    when: << pipeline.parameters.ROM_URL >>
-    jobs:
-      - build
-
 jobs:
   build:
     machine:
@@ -45,5 +8,10 @@ jobs:
       - run:
           name: Setup Tool
           command: |
-            echo "Running Step 1"
-           
+            sudo apt-get install -y android-sdk-build-tools
+            for apk_file in $(sudo find -type f -name *.apk) ; do
+                package_name=$(sudo aapt2 dump badging $apk_file | grep package | head -1 | awk '{print $2}' | sed s/name=//g | sed s/\'//g  )
+                if [[ $package_name = $1 ]]; then
+                  echo $(basename $apk_file)	
+		            fi
+	          done
